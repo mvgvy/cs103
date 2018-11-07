@@ -9,16 +9,23 @@ def encrypt_caesar(plaintext: str) -> str:
     >>> encrypt_caesar("")
     ''
     """
-    cod = [i for i in plaintext]
-    ciphertext = ''
-    for i in range(len(cod)):
-        symbol = ord(cod[i])
-        if 65 <= symbol <= 87 or 97 <= symbol <= 119:
-            cod[i] = chr(symbol + 3)
-        elif 88 <= symbol <= 90 or 120 <= symbol <= 122:
-            cod[i] = chr(symbol - 23)
-        ciphertext += cod[i]
-    return ciphertext
+    text:str = ''
+    for symbol in plaintext:
+        scode:int = ord(symbol)
+        if 64 < scode < 91:
+            if scode + num > 90:
+                text += chr((scode + num - 90) + 64)
+            else:
+                text += chr(scode + num)
+        elif 96 < scode < 123:
+            if scode + 3 > 122:
+                text += chr((scode + num - 122) + 96)
+            else:
+                text += chr(scode + num)
+        else:
+            text += symbol
+    return text
+
 
 
 def decrypt_caesar(ciphertext: str) -> str:
@@ -33,13 +40,19 @@ def decrypt_caesar(ciphertext: str) -> str:
     >>> decrypt_caesar("")
     ''
     """
-    cod1 = [i for i in ciphertext]
-    plaintext = ''
-    for i in range(len(cod1)):
-        symbol1 = ord(cod1[i])
-        if 68 <= symbol1 <= 90 or 100 <= symbol1 <= 122:
-            cod1[i] = chr(symbol1 - 3)
-        elif 65 <= symbol1 <= 67 or 97 <= symbol1 <= 99:
-            cod1[i] = chr(symbol1 + 23)
-        plaintext += cod1[i]
-    return plaintext
+    text:str = ''
+    for sym in ciphertext:
+        scode:int = ord(sym)
+        if 64 < scode < 91:
+            if scode - num < 65:
+                text += chr(91 - (65 - scode + num))
+            else:
+                text += chr(scode - num)
+        elif 96 < char < 123:
+            if scode - num < 97:
+                text += chr(123 - (97 - scode + num))
+            else:
+                text += chr(scode - num)
+        else:
+            text += sym
+    return text
