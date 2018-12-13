@@ -51,18 +51,19 @@ class GameOfLife:
                     self.clist[i][j] = random.randint(0, 1)
         return self.clist
 
-    def draw_cell_list(self, clist: List) -> None:
-        # отображение списка клеток
-        for i in range(self.cell_height):
+    def draw_cell_list(self, clist):
+         for i in range(self.cell_height):
             for j in range(self.cell_width):
-                if self.clist[i][j] == 1:
-                    color_cell = pygame.Color('pink')
+                x = j * self.cell_size + 1
+                y = i * self.cell_size + 1
+                a = self.cell_size - 1
+                b = self.cell_size - 1
+                if clist[i][j]:
+                    pygame.draw.rect(self.screen, pygame.Color('pink'), (x, y, a, b))
                 else:
-                    color_cell = pygame.Color('white')
-                rect = Rect(i, j, self.cell_size, self.cell_size)
-                pygame.draw.rect(self.screen, color_cell, rect)
+                    pygame.draw.rect(self.screen, pygame.Color('white'), (x, y, a, b))
 
-    def get_neighbours(self, cell: Tuple) -> List:
+    def get_neighbours(self, cell):
         # список соседей для указанной ячейки
         neighbours = []
         x, y = cell
@@ -78,12 +79,9 @@ class GameOfLife:
         for i in range(self.cell_height):
             for j in range(self.cell_width):
                 if sum(self.get_neighbours((i, j))) == 2:
-                    if new_clist[i][j] == 1:
-                        new_clist[i][j] = 1
-                    else:
-                        new_clist[i][j] = 0
+                    pass
                 elif sum(self.get_neighbours((i, j))) == 3:
-                        new_clist[i][j] = 1
+                    new_clist[i][j] = 1
                 else:
                     new_clist[i][j] = 0
         self.clist = new_clist
