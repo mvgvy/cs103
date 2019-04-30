@@ -17,7 +17,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_count_worker(self):
         worker = Pool()
-        self.assertEqual(9, worker.map(self.task, self.generate_data(30, 100000))[0])
+        self.assertEqual(10, worker.map(self.task, self.generate_data(30, 100000))[0])
 
     def test_count_worker_max(self):
         worker = Pool(1, 2, 512)
@@ -29,7 +29,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_memory(self):
         worker = Pool()
-        self.assertLessEqual(45, int(worker.map(self.task, self.generate_data(30, 100000))[1]))
+        self.assertLessEqual(30, int(worker.map(self.task, self.generate_data(30, 100000))[1]))
 
     def test_max_memory(self):
         worker = Pool()
